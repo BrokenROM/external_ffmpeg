@@ -95,7 +95,7 @@ LOCAL_GENERATED_SOURCES += $(GEN)
 endif
 
 LOCAL_CFLAGS += \
-	-O3 -std=c99 -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -fomit-frame-pointer \
+	-O3 -std=c99 -fno-math-errno -fno-signed-zeros -fomit-frame-pointer \
 	-Wdisabled-optimization -Wpointer-arith \
 	-Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes \
 	-Wno-pointer-to-int-cast -Wstrict-prototypes -Wempty-body -Wno-parentheses \
@@ -104,6 +104,8 @@ LOCAL_CFLAGS += \
 	-Werror=return-type -Werror=vla -Wformat -Wno-maybe-uninitialized -fPIC
 
 LOCAL_LDFLAGS := -Wl,--no-fatal-warnings -Wl,-Bsymbolic
+
+LOCAL_CLANG_CFLAGS += -Rpass=loop-vectorize
 
 LOCAL_CLANG_ASFLAGS += -no-integrated-as
 

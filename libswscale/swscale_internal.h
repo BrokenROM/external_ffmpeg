@@ -1012,7 +1012,8 @@ typedef struct VScalerContext
 } VScalerContext;
 
 // warp input lines in the form (src + width*i + j) to slice format (line[i][j])
-int ff_init_slice_from_src(SwsSlice * s, uint8_t *src[4], int stride[4], int srcW, int lumY, int lumH, int chrY, int chrH);
+// relative=true means first line src[x][0] otherwise first line is src[x][lum/crh Y]
+int ff_init_slice_from_src(SwsSlice * s, uint8_t *src[4], int stride[4], int srcW, int lumY, int lumH, int chrY, int chrH, int relative);
 
 // Initialize scaler filter descriptor chain
 int ff_init_filters(SwsContext *c);
@@ -1057,6 +1058,8 @@ void ff_init_vscale_pfn(SwsContext *c, yuv2planar1_fn yuv2plane1, yuv2planarX_fn
 #define MAX_LINES_AHEAD 4
 
 // enable use of refactored scaler code
+// (disabling on Android due to CTS failures)
+#ifndef __ANDROID__
 #define NEW_FILTER
-
+#endif
 #endif /* SWSCALE_SWSCALE_INTERNAL_H */
